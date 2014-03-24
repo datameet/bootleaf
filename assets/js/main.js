@@ -22,12 +22,6 @@ var mapquestHYB = L.layerGroup([L.tileLayer("http://{s}.mqcdn.com/tiles/1.0.0/sa
   attribution: 'Labels courtesy of <a href="http://www.mapquest.com/" target="_blank">MapQuest</a> <img src="http://developer.mapquest.com/content/osm/mq_logo.png">. Map data (c) <a href="http://www.openstreetmap.org/" target="_blank">OpenStreetMap</a> contributors, CC-BY-SA. Portions Courtesy NASA/JPL-Caltech and U.S. Depart. of Agriculture, Farm Service Agency'
 })]);
 
-/* Overlay Layers */
-map = L.map("map", {
-  zoom: 13,
-  center: [12.976457,77.587981],
-  layers: [mapquestOSM ]
-});
 
 
 var wards = L.geoJson(null, {
@@ -56,6 +50,8 @@ $.getJSON("data/wards.geojson", function (data) {
 });
 
 
+console.log(wardsSearch);
+
 
 var roads1 = L.geoJson(null, {
   style: function (feature) {
@@ -68,12 +64,12 @@ var roads1 = L.geoJson(null, {
     };
   },
   onEachFeature: function (feature, layer) {
-    wardsSearch.push({
-      name: layer.feature.properties.name,
+/*    roads1Search.push({
+      name: layer.feature.properties.project,
       source: "roads1",
       id: L.stamp(layer),
       bounds: layer.getBounds()
-    });
+    });*/
   }
 });
 
@@ -102,6 +98,14 @@ var overlays = {
   "Wards": wards, "roads1":roads1
 };
 
+/* Overlay Layers */
+map = L.map("map", {
+  zoom: 13,
+  center: [12.976457,77.587981],
+  layers: [mapquestOSM, wards, roads1]
+});
+
+
 var layerControl = L.control.layers(baseLayers, overlays, {
   collapsed: isCollapsed
 }).addTo(map);
@@ -112,6 +116,9 @@ var sidebar = L.control.sidebar("sidebar", {
   closeButton: true,
   position: "left"
 }).addTo(map);
+
+
+
 
 /* Highlight search box text on click */
 $("#searchbox").click(function () {
@@ -165,7 +172,7 @@ $(document).one("ajaxStop", function () {
     limit: 10
   });
   wardsBH.initialize();
-  geonamesBH.initialize();
+  //geonamesBH.initialize();
 
   /* instantiate the typeahead UI */
   $("#searchbox").typeahead({
