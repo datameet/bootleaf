@@ -1,0 +1,34 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "project": "mj road upgrade",
+        "status": "in progress",
+        "cost": 100000
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            77.60195016860962,
+            12.976582162570773
+          ],
+          [
+            77.60812997817992,
+            12.975013931289382
+          ],
+          [
+            77.61212110519409,
+            12.974031167978774
+          ],
+          [
+            77.6153826713562,
+            12.973299320437333
+          ]
+        ]
+      }
+    }
+  ]
+}
